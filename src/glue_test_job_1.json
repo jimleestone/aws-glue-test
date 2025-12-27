@@ -1,0 +1,60 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "glue:GetDatabase",
+                "glue:GetTable",
+                "glue:GetPartitions"
+            ],
+            "Resource": [
+                "arn:aws:glue:ap-northeast-1:379867926836:catalog",
+                "arn:aws:glue:ap-northeast-1:379867926836:database/glue_test_source_db_1",
+                "arn:aws:glue:ap-northeast-1:379867926836:table/glue_test_source_db_1/glue_test_source_table_1"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::glue-test-script--379867926836-ap-northeast-1",
+                "arn:aws:s3:::glue-test-script--379867926836-ap-northeast-1/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::glue-test-source-bucket-1-379867926836-ap-northeast-1",
+                "arn:aws:s3:::glue-test-source-bucket-1-379867926836-ap-northeast-1/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::glue-test-target-bucket-1-379867926836-ap-northeast-1",
+                "arn:aws:s3:::glue-test-target-bucket-1-379867926836-ap-northeast-1/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": [
+                "arn:aws:logs:ap-northeast-1:379867926836:log-group:/aws-glue/jobs/error:*",
+                "arn:aws:logs:ap-northeast-1:379867926836:log-group:/aws-glue/jobs/output:*"
+            ]
+        }
+    ]
+}
