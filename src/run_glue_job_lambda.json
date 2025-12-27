@@ -1,0 +1,18 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "glue:StartJobRun",
+            "Resource": "arn:aws:glue:ap-northeast-1:379867926836:job/glue-test-job-1"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:ap-northeast-1:379867926836:log-group:/aws/lambda/run_glue_job_lambda:*"
+        }
+    ]
+}
