@@ -1,0 +1,44 @@
+# required installer
+python-3.11.9-amd64.exe
+VSCodeSetup-x64-1.110.1.exe
+
+# VSCode extensions
+amazonwebservices.aws-toolkit-vscode-3.98.0.vsix
+ms-python.black-formatter-2025.2.0.vsix
+ms-python.python-2026.2.0-win32-x64.vsix
+ms-toolsai.jupyter-2025.9.1-win32-x64.vsix
+
+# python lib
+## py -m pip download (package name) により全てのdependencies
+jupyter
+ipykernel
+aws-glue-sessions
+boto3
+pyspark==3.5.6
+
+## GitHub repoによりローカルコーディングサポート用lib
+https://github.com/awslabs/aws-glue-libs.git
+
+
+# Python lib setup
+## install multiple packages
+py -m pip download -r requirements.txt -d offline_packages
+py -m pip install --no-index --find-links=offline_packages -r requirements.txt
+
+## install single package
+cd ipykernel
+py -m pip download ipykernel
+py -m pip install --no-index --find-links=. ipykernel
+
+## install Glue PySpark kernel (for PowerShell)
+$gluePath = ((py -m pip show aws-glue-sessions | Select-String "Location:") -split ": ")[1]
+py -m jupyter kernelspec install "$gluePath/aws_glue_interactive_sessions_kernel/glue_pyspark"
+
+## list available kernel
+py -m jupyter kernelspec list
+
+## make wheel file from GitHub repo (git required)
+py -m pip wheel git+https://github.com/awslabs/aws-glue-libs.git -w wheels/
+
+## install python lib from wheel file
+py -m pip install --no-index aws_glue_libs-5.1.0-py3-none-any.whl
